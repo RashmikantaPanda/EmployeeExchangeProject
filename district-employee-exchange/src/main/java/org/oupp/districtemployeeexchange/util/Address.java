@@ -1,4 +1,4 @@
-package org.oupp.districtemployeeexchange.entity;
+package org.oupp.districtemployeeexchange.util;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
