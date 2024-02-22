@@ -9,4 +9,9 @@ public interface EmployerRepository extends JpaRepository<Employer, Integer> {
 
     Optional<Employer> getEmployerByOrganizationName(String organizationName);
 
+    Optional<Employer> getEmployerByEmailAndPassword(String email,String password);
+
+    Optional<Employer> getEmployerByEmail(String email);
+
+
 }
