@@ -19,5 +19,4 @@ import lombok.NoArgsConstructor;
 public class Admin extends Users{
     @Size(min = 2, max = 30, message = "Admin name should be between 2 and 15 ")
     String name;
-
 }

@@ -1,22 +1,33 @@
 package org.oupp.districtemployeeexchange.service.impl;
 
 import org.oupp.districtemployeeexchange.entity.Employer;
+import org.oupp.districtemployeeexchange.entity.Role;
 import org.oupp.districtemployeeexchange.repository.EmployerRepository;
+import org.oupp.districtemployeeexchange.repository.RoleRepository;
 import org.oupp.districtemployeeexchange.service.EmployerService;
+import org.oupp.districtemployeeexchange.service.RoleService;
+import org.oupp.districtemployeeexchange.util.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class EmployerServiceImpl implements EmployerService {
 
     @Autowired
     public EmployerRepository employerRepository;
-
+    @Autowired
+    private RoleService roleService;
     @Override
     public Employer registerEmployer(Employer employer) {
+//        Set<Role> roles=new HashSet<>(Arrays.asList(new Role("ROLE_ADMIN"), new Role("ROLE_CREATOR")));
+//        employer.setRoles(roles);
+        Set<Role> roles = roleService.getOrCreateRoles(UserRole.ROLE_EMPLOYER);
+        employer.setRoles(roles);
         return employerRepository.save(employer);
     }
 
@@ -48,4 +59,5 @@ public class EmployerServiceImpl implements EmployerService {
     public List<Employer> getAllEmployer() {
         return employerRepository.findAll();
     }
+
 }

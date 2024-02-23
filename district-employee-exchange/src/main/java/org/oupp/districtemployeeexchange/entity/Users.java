@@ -24,7 +24,7 @@ public class Users {
     String email;
 
     @Size(min = 6, max = 20, message = "Password length should be between 6 and 20")
-    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$", message = "Password length should be between 6 and 20")
+//    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$", message = "Password length should be between 6 and 20")
     String password;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

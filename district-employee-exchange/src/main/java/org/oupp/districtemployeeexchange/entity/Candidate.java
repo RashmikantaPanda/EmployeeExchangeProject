@@ -8,17 +8,17 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.oupp.districtemployeeexchange.util.Address;
-import org.oupp.districtemployeeexchange.util.Qualification;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="candidates")
-@PrimaryKeyJoinColumn(name="user_id")
+@Table(name = "candidates")
+@PrimaryKeyJoinColumn(name = "user_id")
 public class Candidate extends Users {
 
     @Size(min = 2, max = 15, message = "Firstname should be between 2 and 15 ")
@@ -38,7 +38,7 @@ public class Candidate extends Users {
     @Embedded
     Address address;
 
-    @Embedded
-    Qualification qualification;
-
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    List<Qualification> qualifications;
 }
