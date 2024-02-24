@@ -3,14 +3,12 @@ package org.oupp.districtemployeeexchange.service.impl;
 import org.oupp.districtemployeeexchange.entity.Employer;
 import org.oupp.districtemployeeexchange.entity.Role;
 import org.oupp.districtemployeeexchange.repository.EmployerRepository;
-import org.oupp.districtemployeeexchange.repository.RoleRepository;
 import org.oupp.districtemployeeexchange.service.EmployerService;
 import org.oupp.districtemployeeexchange.service.RoleService;
 import org.oupp.districtemployeeexchange.util.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -40,6 +38,12 @@ public class EmployerServiceImpl implements EmployerService {
     @Override
     public Employer getEmployerByEmailAndPassword(String email, String password) {
         Optional<Employer> employer = employerRepository.getEmployerByEmailAndPassword(email, password);
+        return employer.orElse(null);
+    }
+
+    @Override
+    public Employer getEmployerById(Integer id) {
+        Optional<Employer> employer = employerRepository.findById(id);
         return employer.orElse(null);
     }
 

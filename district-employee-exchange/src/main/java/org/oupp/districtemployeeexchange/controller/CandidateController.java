@@ -51,7 +51,7 @@ public class CandidateController {
 
     @GetMapping("/edit/save")
     public ResponseEntity<Candidate> editCandidate(@RequestBody CandidateEditRequest candidateEditRequest) {
-        Candidate candidate = candidateService.getCandidateById(candidateEditRequest.getId());
+        Candidate candidate = candidateService.editCandidate(candidateEditRequest.getCandidate(),candidateEditRequest.getId());
         if (candidate != null)
             return new ResponseEntity<>(candidate, HttpStatus.OK);
         else

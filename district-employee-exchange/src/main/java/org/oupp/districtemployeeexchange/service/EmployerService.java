@@ -11,6 +11,8 @@ public interface EmployerService {
 
     Employer getEmployerByEmailAndPassword(String email, String password);
 
+    Employer getEmployerById(Integer id);
+
     Employer getEmployerByEmail(String email);
 
     Employer getEmployerByOrganization(String organization);
