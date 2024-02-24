@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class LoginRequest {
-    String email;
-    String password;
+@NoArgsConstructor
+@Builder
+public class JwtResponseDTO {
+    private String accessToken;
+  
 }

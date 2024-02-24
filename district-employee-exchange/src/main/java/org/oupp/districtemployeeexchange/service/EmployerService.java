@@ -18,4 +18,6 @@ public interface EmployerService {
     Employer getEmployerByOrganization(String organization);
 
     List<Employer> getAllEmployer();
+
+    Employer editAndSaveEmployer(Employer employer, Integer id);
 }

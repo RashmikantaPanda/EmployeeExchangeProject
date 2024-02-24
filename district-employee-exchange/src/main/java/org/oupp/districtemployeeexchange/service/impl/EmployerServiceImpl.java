@@ -7,6 +7,7 @@ import org.oupp.districtemployeeexchange.service.EmployerService;
 import org.oupp.districtemployeeexchange.service.RoleService;
 import org.oupp.districtemployeeexchange.util.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,10 +21,15 @@ public class EmployerServiceImpl implements EmployerService {
     public EmployerRepository employerRepository;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+
     @Override
     public Employer registerEmployer(Employer employer) {
-//        Set<Role> roles=new HashSet<>(Arrays.asList(new Role("ROLE_ADMIN"), new Role("ROLE_CREATOR")));
-//        employer.setRoles(roles);
+        employer.setPassword(passwordEncoder.encode(employer.getPassword()));
+        employerRepository.save(employer);
+
         Set<Role> roles = roleService.getOrCreateRoles(UserRole.ROLE_EMPLOYER);
         employer.setRoles(roles);
         return employerRepository.save(employer);
@@ -62,6 +68,11 @@ public class EmployerServiceImpl implements EmployerService {
     @Override
     public List<Employer> getAllEmployer() {
         return employerRepository.findAll();
+    }
+
+    @Override
+    public Employer editAndSaveEmployer(Employer employer, Integer id) {
+        return null;
     }
 
 }

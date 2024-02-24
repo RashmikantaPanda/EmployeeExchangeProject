@@ -41,10 +41,10 @@ public class EmployerController {
 
     @PostMapping("/edit/save")
     public ResponseEntity<Employer> editAndSaveEmployer(@RequestBody EmployerEditRequest employerEditRequest){
-        Employer employer=employerService.editEmployer(employerEditRequest.getEmployer(),employerEditRequest.getId());
+        Employer employer=employerService.editAndSaveEmployer(employerEditRequest.getEmployer(),employerEditRequest.getId());
         if(employer!=null)
             return new ResponseEntity<>(employer,HttpStatus.OK);
         else
-            return new ResponseEntity<>(HttpStatus);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

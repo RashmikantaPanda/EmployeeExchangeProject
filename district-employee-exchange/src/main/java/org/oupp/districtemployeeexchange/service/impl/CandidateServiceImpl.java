@@ -8,6 +8,7 @@ import org.oupp.districtemployeeexchange.service.CandidateService;
 import org.oupp.districtemployeeexchange.service.RoleService;
 import org.oupp.districtemployeeexchange.util.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -24,10 +25,14 @@ public class CandidateServiceImpl implements CandidateService {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public Candidate registerCandidate(Candidate candidate) {
-//        Set<Role> roles=new HashSet<>(Arrays.asList(new Role("ROLE_CANDIDATE")));
-//        candidate.setRoles(roles);
+
+        candidate.setPassword(passwordEncoder.encode(candidate.getPassword()));
+        candidateRepository.save(candidate);
 
         Set<Role> roles = roleService.getOrCreateRoles(UserRole.ROLE_CANDIDATE);
         candidate.setRoles(roles);

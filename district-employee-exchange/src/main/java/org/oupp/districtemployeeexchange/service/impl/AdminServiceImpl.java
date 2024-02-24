@@ -8,6 +8,7 @@ import org.oupp.districtemployeeexchange.service.AdminService;
 import org.oupp.districtemployeeexchange.service.RoleService;
 import org.oupp.districtemployeeexchange.util.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -22,9 +23,14 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+
     public Admin registerAdmin(Admin admin){
-//        Set<Role> roles=new HashSet<>(Arrays.asList(new Role("ROLE_ADMIN"), new Role("ROLE_CREATOR")));
-//        admin.setRoles(roles);
+
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        adminRepository.save(admin);
 
         Set<Role> roles = roleService.getOrCreateRoles(UserRole.ROLE_ADMIN, UserRole.ROLE_CREATOR);
         admin.setRoles(roles);
