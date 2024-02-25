@@ -34,7 +34,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/candidate/login", "/candidate/register", "/admin/login", "/admin/register", "/employer/login", "/employer/register").permitAll()
+                .requestMatchers("/candidate/home","/candidate/login", "/candidate/register", "/admin/login", "/admin/register", "/employer/login", "/employer/register").permitAll()
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/candidate/edit/", "/candidate/hello", "candidate/edit/save").hasAnyRole("CANDIDATE","ADMIN","CREATOR")

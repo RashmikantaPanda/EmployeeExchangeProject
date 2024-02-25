@@ -15,8 +15,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("candidate")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CandidateController {
 
     @Autowired
@@ -40,19 +44,32 @@ public class CandidateController {
 //            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
 //    }
 
+
     @PostMapping("/login")
-    public String AuthenticateAndGetToken(@RequestBody LoginRequest loginRequest){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
-        if(authentication.isAuthenticated()){
-            return jwtService.GenerateToken(loginRequest.getEmail());
+    public ResponseEntity<Map<String, String>> authenticateAndGetToken(@RequestBody LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+        if (authentication.isAuthenticated()) {
+            String token = jwtService.generateToken(loginRequest.getEmail());
+
+            Map<String, String> response = new HashMap<>();
+            response.put("token", token);
+
+            return ResponseEntity.ok(response);
         } else {
-            throw new UsernameNotFoundException("invalid user request..!!");
+            throw new UsernameNotFoundException("Invalid user request..!!");
         }
     }
+
 
     @GetMapping("/hello")
     public String hello(){
         return "Hello Rashmikanta";
+    }
+    @GetMapping("/home")
+    public ResponseEntity<Map<String, String>> home() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "CANDIDATE HOME");
+        return ResponseEntity.ok(response);
     }
 
 

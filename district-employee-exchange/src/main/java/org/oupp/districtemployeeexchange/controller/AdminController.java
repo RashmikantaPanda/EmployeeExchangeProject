@@ -42,7 +42,7 @@ public class AdminController {
     public String AuthenticateAndGetToken(@RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
         if(authentication.isAuthenticated()){
-            return jwtService.GenerateToken(loginRequest.getEmail());
+            return jwtService.generateToken(loginRequest.getEmail());
         } else {
             throw new UsernameNotFoundException("invalid user request..!!");
         }
