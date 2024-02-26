@@ -2,6 +2,7 @@ package org.oupp.districtemployeeexchange.controller;
 
 
 import org.oupp.districtemployeeexchange.dto.CandidateEditRequest;
+import org.oupp.districtemployeeexchange.dto.DemoJson;
 import org.oupp.districtemployeeexchange.dto.LoginRequest;
 import org.oupp.districtemployeeexchange.entity.Candidate;
 import org.oupp.districtemployeeexchange.security.JwtService;
@@ -20,7 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("candidate")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class CandidateController {
 
     @Autowired
@@ -35,15 +36,6 @@ public class CandidateController {
     public ResponseEntity<Candidate> registerCandidate(@RequestBody Candidate candidate) {
         return new ResponseEntity<>(candidateService.registerCandidate(candidate), HttpStatus.CREATED);
     }
-
-//    @PostMapping("/login")
-//    public ResponseEntity<Boolean> authenticateCandidate(@RequestBody LoginRequest loginRequest) {
-//        if (candidateService.loginCandidate(loginRequest.getEmail(), loginRequest.getPassword()))
-//            return new ResponseEntity<>(true, HttpStatus.OK);
-//        else
-//            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
-//    }
-
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> authenticateAndGetToken(@RequestBody LoginRequest loginRequest) {
@@ -62,8 +54,10 @@ public class CandidateController {
 
 
     @GetMapping("/hello")
-    public String hello(){
-        return "Hello Rashmikanta";
+    public ResponseEntity<DemoJson> hello(){
+        DemoJson demoJson=new DemoJson();
+        demoJson.setData("Hello Rashmikanta");
+        return new ResponseEntity<>(demoJson,HttpStatus.OK);
     }
     @GetMapping("/home")
     public ResponseEntity<Map<String, String>> home() {
@@ -76,6 +70,15 @@ public class CandidateController {
     @GetMapping("/{id}")
     public ResponseEntity<Candidate> getCandidateById(@PathVariable("id") Integer candidateId) {
         Candidate candidate = candidateService.getCandidateById(candidateId);
+        if (candidate != null)
+            return new ResponseEntity<>(candidate, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Candidate> getCandidateByEmail(@PathVariable("email") String email) {
+        Candidate candidate = candidateService.getCandidateByEmail(email);
         if (candidate != null)
             return new ResponseEntity<>(candidate, HttpStatus.OK);
         else

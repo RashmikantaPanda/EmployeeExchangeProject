@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .requestMatchers("/candidate/home","/candidate/login", "/candidate/register", "/admin/login", "/admin/register", "/employer/login", "/employer/register").permitAll()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/candidate/edit/", "/candidate/hello", "candidate/edit/save").hasAnyRole("CANDIDATE","ADMIN","CREATOR")
+                .requestMatchers("/candidate/**", "/candidate/hello", "candidate/edit/save").hasAnyRole("CANDIDATE","ADMIN","CREATOR")
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/employer/edit/", "employer/edit/save").hasAnyRole("EMPLOYER","ADMIN")

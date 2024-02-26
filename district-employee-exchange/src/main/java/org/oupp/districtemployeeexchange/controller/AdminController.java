@@ -30,14 +30,6 @@ public class AdminController {
         return new ResponseEntity<>(adminService.registerAdmin(admin), HttpStatus.CREATED);
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<Boolean> authenticateAdmin(@RequestBody LoginRequest loginRequest){
-//        if(adminService.loginAdmin(loginRequest.getEmail(),loginRequest.getPassword()))
-//            return new ResponseEntity<>(true,HttpStatus.OK);
-//        else
-//            return new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
-//    }
-
     @PostMapping("/login")
     public String AuthenticateAndGetToken(@RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
