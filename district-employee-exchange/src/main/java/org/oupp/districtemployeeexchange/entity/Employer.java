@@ -8,13 +8,15 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.oupp.districtemployeeexchange.util.Address;
 
+import java.util.List;
+
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="employer")
-@PrimaryKeyJoinColumn(name="user_id")
+@Table(name = "employer")
+@PrimaryKeyJoinColumn(name = "user_id")
 @Data
 public class Employer extends Users {
 
@@ -23,4 +25,7 @@ public class Employer extends Users {
 
     @Embedded
     Address address;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employer")
+    List<Jobs> jobs;
 }

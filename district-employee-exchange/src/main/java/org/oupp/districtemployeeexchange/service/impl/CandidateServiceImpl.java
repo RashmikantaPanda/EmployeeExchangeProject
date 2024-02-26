@@ -32,7 +32,6 @@ public class CandidateServiceImpl implements CandidateService {
     public Candidate registerCandidate(Candidate candidate) {
 
         candidate.setPassword(passwordEncoder.encode(candidate.getPassword()));
-        candidateRepository.save(candidate);
 
         Set<Role> roles = roleService.getOrCreateRoles(UserRole.ROLE_CANDIDATE);
         candidate.setRoles(roles);

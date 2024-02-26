@@ -30,8 +30,6 @@ public class AdminServiceImpl implements AdminService {
     public Admin registerAdmin(Admin admin){
 
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-        adminRepository.save(admin);
-
         Set<Role> roles = roleService.getOrCreateRoles(UserRole.ROLE_ADMIN, UserRole.ROLE_CREATOR);
         admin.setRoles(roles);
         return adminRepository.save(admin);
