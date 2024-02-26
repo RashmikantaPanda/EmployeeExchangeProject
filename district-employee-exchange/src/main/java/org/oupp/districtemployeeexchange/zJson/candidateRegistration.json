@@ -1,0 +1,37 @@
+//   localhost:8080/candidate/register   [POST]
+
+{
+  "email": "tarinee@gmail.com",
+  "password": "Tarinee@gmail",
+  "firstName": "Tarinee",
+  "lastName": "Panda",
+  "mobile": "9876543210",
+  "dateOfBirth": "2000-01-01",
+  "address": {
+    "street": "SH 9A",
+    "city": "DHK",
+    "state": "Odisha",
+    "country": "India",
+    "pincode": "765432"
+  },
+  "qualifications": [
+    {
+      "standard": "+3",
+      "institution": "Dhenkanal Autonomous College",
+      "stream": "Science",
+      "board": "State Board",
+      "percentage": 84.5,
+      "admissionYear": 2018,
+      "passoutYear": 2021
+    },
+    {
+      "standard": "PG",
+      "institution": "LP University",
+      "stream": "MCA",
+      "board": "LP University",
+      "percentage": 78.2,
+      "admissionYear": 2021,
+      "passoutYear": 2023
+    }
+  ]
+}

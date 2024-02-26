@@ -1,0 +1,6 @@
+//   localhost:8080/candidate/login    [POST]
+
+{
+  "email":"tarinee@gmail.com",
+  "password":"Tarinee@gmail"
+}
