@@ -1,6 +1,7 @@
 package org.oupp.districtemployeeexchange.service;
 
 import org.oupp.districtemployeeexchange.entity.Employer;
+import org.oupp.districtemployeeexchange.entity.Jobs;
 
 import java.util.List;
 
@@ -20,4 +21,8 @@ public interface EmployerService {
     List<Employer> getAllEmployer();
 
     Employer editAndSaveEmployer(Employer employer, Integer id);
+
+    Jobs createNewJob(Jobs job);
+
+    List<Jobs> createMultipleNewJobs(List<Jobs> jobs);
 }

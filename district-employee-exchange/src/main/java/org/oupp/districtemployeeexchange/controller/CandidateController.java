@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -41,8 +42,9 @@ public class CandidateController {
     public ResponseEntity<Map<String, String>> authenticateAndGetToken(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
         if (authentication.isAuthenticated()) {
+            System.out.println("Login Success");
             String token = jwtService.generateToken(loginRequest.getEmail());
-
+            System.out.println("Token Generated");
             Map<String, String> response = new HashMap<>();
             response.put("token", token);
 
@@ -75,6 +77,17 @@ public class CandidateController {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Candidate>> getAllCandidates() {
+        List<Candidate> candidates = candidateService.getAllCandidate();
+        if (candidates != null)
+            return new ResponseEntity<>(candidates, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
 
     @GetMapping("/email/{email}")
     public ResponseEntity<Candidate> getCandidateByEmail(@PathVariable("email") String email) {

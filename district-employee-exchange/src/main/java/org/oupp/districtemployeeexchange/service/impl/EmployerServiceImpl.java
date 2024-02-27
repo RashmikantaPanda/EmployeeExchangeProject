@@ -1,9 +1,11 @@
 package org.oupp.districtemployeeexchange.service.impl;
 
 import org.oupp.districtemployeeexchange.entity.Employer;
+import org.oupp.districtemployeeexchange.entity.Jobs;
 import org.oupp.districtemployeeexchange.entity.Role;
 import org.oupp.districtemployeeexchange.repository.EmployerRepository;
 import org.oupp.districtemployeeexchange.service.EmployerService;
+import org.oupp.districtemployeeexchange.service.JobService;
 import org.oupp.districtemployeeexchange.service.RoleService;
 import org.oupp.districtemployeeexchange.util.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,8 @@ public class EmployerServiceImpl implements EmployerService {
     private RoleService roleService;
     @Autowired
     PasswordEncoder passwordEncoder;
-
+    @Autowired
+    private JobService jobService;
 
     @Override
     public Employer registerEmployer(Employer employer) {
@@ -74,5 +77,19 @@ public class EmployerServiceImpl implements EmployerService {
     public Employer editAndSaveEmployer(Employer employer, Integer id) {
         return null;
     }
+
+    @Override
+    public Jobs createNewJob(Jobs job) {
+        return jobService.createNewJob(job);
+    }
+
+    @Override
+    public List<Jobs> createMultipleNewJobs(List<Jobs> jobs) {
+        return jobService.createNewJobs(jobs);
+    }
+
+//    public Jobs updateJob(Jobs job,Integer jobId){
+//        Optional<Jobs> job=jobService.
+//    }
 
 }

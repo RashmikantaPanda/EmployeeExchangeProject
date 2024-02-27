@@ -17,6 +17,7 @@ public class Jobs {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "job_id")
     Integer jobId;
+    String jobTitle;
     String description;
     String jobType;
     String jobLocation;
