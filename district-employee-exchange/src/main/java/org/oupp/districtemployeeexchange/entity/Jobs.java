@@ -26,7 +26,7 @@ public class Jobs {
     Boolean status;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+//    @JsonIgnore
     Employer employer;
 
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)

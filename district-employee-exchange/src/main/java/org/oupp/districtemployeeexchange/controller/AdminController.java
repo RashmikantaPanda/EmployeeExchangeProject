@@ -9,6 +9,7 @@ import org.oupp.districtemployeeexchange.security.JwtService;
 import org.oupp.districtemployeeexchange.service.AdminService;
 import org.oupp.districtemployeeexchange.service.CandidateService;
 import org.oupp.districtemployeeexchange.service.EmployerService;
+import org.oupp.districtemployeeexchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,45 +33,22 @@ public class AdminController {
     @Autowired
     private CandidateService candidateService;
     @Autowired
-    private JwtService jwtService;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private UserService userService;
+//    @Autowired
+//    private JwtService jwtService;
+//
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
     public ResponseEntity<Admin> registerAdmin(@RequestBody Admin admin) {
         return new ResponseEntity<>(adminService.registerAdmin(admin), HttpStatus.CREATED);
     }
 
-//    @PostMapping("/login")
-//    public String AuthenticateAndGetToken(@RequestBody LoginRequest loginRequest) {
-//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-//        if (authentication.isAuthenticated()) {
-//            return jwtService.generateToken(loginRequest.getEmail());
-//        } else {
-//            throw new UsernameNotFoundException("invalid user request..!!");
-//        }
-//    }
-
-
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> authenticateAndGetToken(@RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-        if (authentication.isAuthenticated()) {
-            System.out.println("Login Success");
-            String token = jwtService.generateToken(loginRequest.getEmail());
-            System.out.println("Token Generated");
-            Map<String, String> response = new HashMap<>();
-            response.put("token", token);
-
-            return ResponseEntity.ok(response);
-        } else {
-            throw new UsernameNotFoundException("Invalid user request..!!");
-        }
+    public ResponseEntity<JwtResponseDTO> authenticateAndGetToken(@RequestBody LoginRequest loginRequest) {
+        return new ResponseEntity<>(userService.authenticateUser(loginRequest), HttpStatus.OK);
     }
-
-
-
 
     @GetMapping("/hello")
     public String helloAdmin() {
@@ -82,6 +60,7 @@ public class AdminController {
     public ResponseEntity<Employer> registerEmployer(@RequestBody Employer employer) {
         return new ResponseEntity<>(employerService.registerEmployer(employer), HttpStatus.CREATED);
     }
+
     @GetMapping("/employers/all")
     public ResponseEntity<List<Employer>> getAllEmployer() {
         return new ResponseEntity<>(employerService.getAllEmployer(), HttpStatus.OK);

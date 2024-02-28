@@ -3,10 +3,12 @@ package org.oupp.districtemployeeexchange.controller;
 
 import org.oupp.districtemployeeexchange.dto.CandidateEditRequest;
 import org.oupp.districtemployeeexchange.dto.DemoJson;
+import org.oupp.districtemployeeexchange.dto.JwtResponseDTO;
 import org.oupp.districtemployeeexchange.dto.LoginRequest;
 import org.oupp.districtemployeeexchange.entity.Candidate;
 import org.oupp.districtemployeeexchange.security.JwtService;
 import org.oupp.districtemployeeexchange.service.CandidateService;
+import org.oupp.districtemployeeexchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,8 @@ public class CandidateController {
     @Autowired
     private CandidateService candidateService;
     @Autowired
+    private UserService userService;
+    @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
     JwtService jwtService;
@@ -39,28 +43,17 @@ public class CandidateController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> authenticateAndGetToken(@RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-        if (authentication.isAuthenticated()) {
-            System.out.println("Login Success");
-            String token = jwtService.generateToken(loginRequest.getEmail());
-            System.out.println("Token Generated");
-            Map<String, String> response = new HashMap<>();
-            response.put("token", token);
-
-            return ResponseEntity.ok(response);
-        } else {
-            throw new UsernameNotFoundException("Invalid user request..!!");
-        }
+    public ResponseEntity<JwtResponseDTO> authenticateAndGetToken(@RequestBody LoginRequest loginRequest) {
+        return new ResponseEntity<>(userService.authenticateUser(loginRequest), HttpStatus.OK);
     }
-
 
     @GetMapping("/hello")
-    public ResponseEntity<DemoJson> hello(){
-        DemoJson demoJson=new DemoJson();
+    public ResponseEntity<DemoJson> hello() {
+        DemoJson demoJson = new DemoJson();
         demoJson.setData("Hello Rashmikanta");
-        return new ResponseEntity<>(demoJson,HttpStatus.OK);
+        return new ResponseEntity<>(demoJson, HttpStatus.OK);
     }
+
     @GetMapping("/home")
     public ResponseEntity<Map<String, String>> home() {
         Map<String, String> response = new HashMap<>();
@@ -88,7 +81,6 @@ public class CandidateController {
     }
 
 
-
     @GetMapping("/email/{email}")
     public ResponseEntity<Candidate> getCandidateByEmail(@PathVariable("email") String email) {
         Candidate candidate = candidateService.getCandidateByEmail(email);
@@ -109,7 +101,7 @@ public class CandidateController {
 
     @GetMapping("/edit/save")
     public ResponseEntity<Candidate> editCandidate(@RequestBody CandidateEditRequest candidateEditRequest) {
-        Candidate candidate = candidateService.editCandidate(candidateEditRequest.getCandidate(),candidateEditRequest.getId());
+        Candidate candidate = candidateService.editCandidate(candidateEditRequest.getCandidate(), candidateEditRequest.getId());
         if (candidate != null)
             return new ResponseEntity<>(candidate, HttpStatus.OK);
         else
