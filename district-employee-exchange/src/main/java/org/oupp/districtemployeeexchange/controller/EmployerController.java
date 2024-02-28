@@ -59,5 +59,15 @@ public class EmployerController {
         return new ResponseEntity<>(jobService.createNewJobs(jobs), HttpStatus.CREATED);
     }
 
+    @GetMapping("/get/id/{id}")
+    public ResponseEntity<Employer> getEmployerByID(@PathVariable("id") Integer id){
+        return new ResponseEntity<>(employerService.getEmployerById(id),HttpStatus.OK);
+    }
+
+    @GetMapping("/get/email/{email}")
+    public ResponseEntity<Employer> getEmployerByEmail(@PathVariable("email") String emailId) {
+        return new ResponseEntity<>(employerService.getEmployerByEmail(emailId), HttpStatus.OK);
+    }
+
 
 }

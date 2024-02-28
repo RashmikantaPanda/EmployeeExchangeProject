@@ -21,7 +21,7 @@ import java.util.List;
 @Data
 public class Employer extends Users {
 
-    @Size(min = 2, max = 30, message = "Organization should be between 2 and 15 ")
+    @Size(min = 2, max = 50, message = "Organization should be between 2 and 50 ")
     String organizationName;
 
     @Embedded

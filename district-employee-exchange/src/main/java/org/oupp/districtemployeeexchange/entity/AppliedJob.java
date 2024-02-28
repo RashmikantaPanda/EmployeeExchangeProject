@@ -23,11 +23,11 @@ public class AppliedJob {
     @Column(name = "applied_job_id")
     private Integer appliedJobId;
 
-    @ManyToOne
-//    @JsonManagedReference
-    @JoinColumn(name = "employer_user_id")
-    @JsonIgnoreProperties("appliedJobs")
-    private Employer employer;
+//    @ManyToOne
+////    @JsonManagedReference
+//    @JoinColumn(name = "employer_user_id")
+//    @JsonIgnoreProperties("appliedJobs")
+//    private Employer employer;
 
 
     @ManyToOne
