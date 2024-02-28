@@ -1,7 +1,9 @@
 package org.oupp.districtemployeeexchange.service.impl;
 
+import org.oupp.districtemployeeexchange.entity.Employer;
 import org.oupp.districtemployeeexchange.entity.Jobs;
 import org.oupp.districtemployeeexchange.repository.JobRepository;
+import org.oupp.districtemployeeexchange.service.EmployerService;
 import org.oupp.districtemployeeexchange.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ public class JobServiceImpl implements JobService {
 
     @Autowired
     private JobRepository jobRepository;
+//    @Autowired
+//    EmployerService employerService;
 
     @Override
     public Jobs createNewJob(Jobs job) {

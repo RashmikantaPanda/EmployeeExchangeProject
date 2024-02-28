@@ -51,7 +51,7 @@ public class EmployerController {
 
     @PostMapping("/add/job")
     public ResponseEntity<Jobs> addNewJob(@RequestBody Jobs job) {
-        return new ResponseEntity<>(jobService.createNewJob(job), HttpStatus.CREATED);
+        return new ResponseEntity<>(employerService.createNewJob(job), HttpStatus.CREATED);
     }
 
     @PostMapping("/add/jobs")
