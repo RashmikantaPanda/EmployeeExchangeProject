@@ -1,6 +1,9 @@
 package org.oupp.districtemployeeexchange.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,13 +24,16 @@ public class AppliedJob {
     private Integer appliedJobId;
 
     @ManyToOne
+//    @JsonManagedReference
     @JoinColumn(name = "employer_user_id")
-    @JsonIgnore
+    @JsonIgnoreProperties("appliedJobs")
     private Employer employer;
 
+
     @ManyToOne
+//    @JsonManagedReference
     @JoinColumn(name = "candidate_user_id")
-    @JsonIgnore
+    @JsonIgnoreProperties("appliedJobs")
     private Candidate candidate;
 
     @ManyToOne

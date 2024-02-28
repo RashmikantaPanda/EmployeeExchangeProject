@@ -41,6 +41,11 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+    public List<Jobs> getAllAvailableJobs() {
+        return jobRepository.getJobsByStatusIsTrue();
+    }
+
+    @Override
     public List<Jobs> getJobsByOrganization(String organizationName) {
         return jobRepository.getJobsByEmployer_OrganizationName(organizationName);
     }

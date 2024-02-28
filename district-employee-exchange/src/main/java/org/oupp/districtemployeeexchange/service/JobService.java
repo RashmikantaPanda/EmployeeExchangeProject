@@ -9,6 +9,7 @@ public interface JobService {
     List<Jobs>  createNewJobs(List<Jobs> jobs);
 
     Jobs getJobsById(Integer jobId);
+    List<Jobs> getAllAvailableJobs();
 
     List<Jobs> getJobsByOrganization(String organizationName);
 

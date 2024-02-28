@@ -34,11 +34,7 @@ public class AdminController {
     private CandidateService candidateService;
     @Autowired
     private UserService userService;
-//    @Autowired
-//    private JwtService jwtService;
-//
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
+
 
     @PostMapping("/register")
     public ResponseEntity<Admin> registerAdmin(@RequestBody Admin admin) {

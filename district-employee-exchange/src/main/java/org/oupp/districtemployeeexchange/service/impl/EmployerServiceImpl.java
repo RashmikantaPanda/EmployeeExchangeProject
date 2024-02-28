@@ -80,6 +80,8 @@ public class EmployerServiceImpl implements EmployerService {
 
     @Override
     public Jobs createNewJob(Jobs job) {
+        System.out.println(job);
+        System.out.println("Emp id : "+job.getEmployer().getId());
         Optional<Employer> employer = employerRepository.findById(job.getEmployer().getId());
         if (employer.isPresent()) {
             job.setEmployer(employer.get());

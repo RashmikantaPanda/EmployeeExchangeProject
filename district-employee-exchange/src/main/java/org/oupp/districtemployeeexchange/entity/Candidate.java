@@ -1,5 +1,8 @@
 package org.oupp.districtemployeeexchange.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -41,4 +44,9 @@ public class Candidate extends Users {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     List<Qualification> qualifications;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "candidate")
+    @JsonBackReference
+    private List<AppliedJob> appliedJobs;
+
 }

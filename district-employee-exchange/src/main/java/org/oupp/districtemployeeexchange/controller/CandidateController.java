@@ -1,13 +1,14 @@
 package org.oupp.districtemployeeexchange.controller;
 
 
-import org.oupp.districtemployeeexchange.dto.CandidateEditRequest;
-import org.oupp.districtemployeeexchange.dto.DemoJson;
-import org.oupp.districtemployeeexchange.dto.JwtResponseDTO;
-import org.oupp.districtemployeeexchange.dto.LoginRequest;
+import org.oupp.districtemployeeexchange.dto.*;
+import org.oupp.districtemployeeexchange.entity.AppliedJob;
 import org.oupp.districtemployeeexchange.entity.Candidate;
+import org.oupp.districtemployeeexchange.entity.Jobs;
 import org.oupp.districtemployeeexchange.security.JwtService;
+import org.oupp.districtemployeeexchange.service.AppliedJobService;
 import org.oupp.districtemployeeexchange.service.CandidateService;
+import org.oupp.districtemployeeexchange.service.JobService;
 import org.oupp.districtemployeeexchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,10 @@ public class CandidateController {
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
-    JwtService jwtService;
+    private AppliedJobService appliedJobService;
+    @Autowired
+    private JobService jobService;
+
 
 
     @PostMapping("/register")
@@ -108,5 +112,16 @@ public class CandidateController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
+    @PostMapping("/job/apply")
+    public ResponseEntity<Map<String,String>> applyJob(@RequestBody ApplyJobRequest applyJobRequest){
+        Map<String,String > response=new HashMap<>();
+        String status=appliedJobService.applyJob(applyJobRequest);
+        response.put("status",status);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
 
+    @GetMapping("/job/available")
+    public ResponseEntity<List<Jobs>> viewAllAvailableJobs(){
+        return new ResponseEntity<>(jobService.getAllAvailableJobs(),HttpStatus.OK);
+    }
 }

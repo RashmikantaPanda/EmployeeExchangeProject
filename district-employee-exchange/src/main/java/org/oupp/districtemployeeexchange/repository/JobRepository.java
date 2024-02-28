@@ -19,4 +19,6 @@ public interface JobRepository extends JpaRepository<Jobs,Integer> {
     List<Jobs> searchJobsByAllFields(String searchTerm);
 
     List<Jobs> getJobsByEmployer_OrganizationName(String organizationName);
+
+    List<Jobs> getJobsByStatusIsTrue();
 }

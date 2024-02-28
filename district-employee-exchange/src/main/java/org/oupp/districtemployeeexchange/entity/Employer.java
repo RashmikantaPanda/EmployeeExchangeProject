@@ -1,5 +1,6 @@
 package org.oupp.districtemployeeexchange.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,8 @@ public class Employer extends Users {
     @Embedded
     Address address;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employer")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "employer",fetch = FetchType.EAGER)
+//    @JsonBackReference
+    @JsonIgnoreProperties("employer")
     List<Jobs> jobs;
 }

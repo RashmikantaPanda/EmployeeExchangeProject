@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy= InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 public class Users {
 
@@ -23,8 +23,6 @@ public class Users {
     @Column(unique = true, nullable = false)
     String email;
 
-//    @Size(min = 6, max = 50, message = "Password length should be between 6 and 20")
-//    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$", message = "Password length should be between 6 and 20")
     String password;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -1,6 +1,6 @@
 package org.oupp.districtemployeeexchange.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,12 +24,15 @@ public class Jobs {
     Double salary;
     Integer noOfVacancy;
     Boolean status;
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
-//    @JsonIgnore
+    @JoinColumn(name = "employer_user_id")
+//    @JsonManagedReference
+    @JsonBackReference
     Employer employer;
 
-    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AppliedJob> appliedJobs;
-    private Boolean deleted=false;
+//    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonIgnore
+//    private List<AppliedJob> appliedJobs;
+    private Boolean deleted = false;
 }
