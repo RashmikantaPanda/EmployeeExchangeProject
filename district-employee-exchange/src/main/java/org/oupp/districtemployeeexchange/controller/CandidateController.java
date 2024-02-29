@@ -124,4 +124,9 @@ public class CandidateController {
     public ResponseEntity<List<Jobs>> viewAllAvailableJobs(){
         return new ResponseEntity<>(jobService.getAllAvailableJobs(),HttpStatus.OK);
     }
+
+    @GetMapping("/job/applied/{id}")
+    public ResponseEntity<List<Jobs>> viewAllAppliedJobs(@PathVariable("id") Integer id){
+        return new ResponseEntity<>(appliedJobService.getAppliedJobsByCandidateId(id),HttpStatus.OK);
+    }
 }

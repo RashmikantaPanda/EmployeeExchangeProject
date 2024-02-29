@@ -12,7 +12,10 @@ import org.oupp.districtemployeeexchange.service.EmployerService;
 import org.oupp.districtemployeeexchange.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,5 +59,17 @@ public class AppliedJobServiceImpl implements AppliedJobService {
             return appliedJobRepository.save(appliedJob.get());
         } else
             return null;
+    }
+
+    @Override
+    public List<Jobs> getAppliedJobsByCandidateId(Integer candiDateId){
+        List<AppliedJob> appliedJobs=appliedJobRepository.getAppliedJobByCandidate_Id(candiDateId);
+        List<Jobs> jobs=new ArrayList<>();
+
+        for(AppliedJob appliedJob:appliedJobs){
+            Jobs job=appliedJob.getJob();
+            jobs.add(job);
+        }
+        return jobs;
     }
 }
