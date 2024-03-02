@@ -11,5 +11,6 @@ import java.util.List;
 public interface AppliedJobRepository extends JpaRepository<AppliedJob,Integer> {
 
     List<AppliedJob> getAppliedJobByCandidate_Id(Integer id);
+    List<AppliedJob> getAppliedJobByJob_Employer_Id(Integer empId);
 
 }

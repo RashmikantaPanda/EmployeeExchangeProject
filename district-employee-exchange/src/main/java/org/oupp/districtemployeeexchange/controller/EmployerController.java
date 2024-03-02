@@ -1,10 +1,13 @@
 package org.oupp.districtemployeeexchange.controller;
 
+import org.oupp.districtemployeeexchange.dto.AppliedJobUpdateRequest;
 import org.oupp.districtemployeeexchange.dto.EmployerEditRequest;
 import org.oupp.districtemployeeexchange.dto.JwtResponseDTO;
 import org.oupp.districtemployeeexchange.dto.LoginRequest;
+import org.oupp.districtemployeeexchange.entity.AppliedJob;
 import org.oupp.districtemployeeexchange.entity.Employer;
 import org.oupp.districtemployeeexchange.entity.Jobs;
+import org.oupp.districtemployeeexchange.service.AppliedJobService;
 import org.oupp.districtemployeeexchange.service.EmployerService;
 import org.oupp.districtemployeeexchange.service.JobService;
 import org.oupp.districtemployeeexchange.service.UserService;
@@ -25,6 +28,8 @@ public class EmployerController {
     private JobService jobService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private AppliedJobService appliedJobService;
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponseDTO> authenticateAndGetToken(@RequestBody LoginRequest loginRequest) {
@@ -68,6 +73,18 @@ public class EmployerController {
     public ResponseEntity<Employer> getEmployerByEmail(@PathVariable("email") String emailId) {
         return new ResponseEntity<>(employerService.getEmployerByEmail(emailId), HttpStatus.OK);
     }
+
+    @PostMapping("/update/appliedJob")
+    public ResponseEntity<AppliedJob> updateAppliedJobStatus(@RequestBody AppliedJobUpdateRequest appliedJobUpdateRequest){
+        System.out.println(appliedJobUpdateRequest);
+        return new ResponseEntity<>(appliedJobService.acceptOrRejectCandidate(appliedJobUpdateRequest),HttpStatus.OK);
+    }
+
+    @GetMapping("/view/appliedJob/{id}")
+    public ResponseEntity<List<AppliedJob>> viewAllAppliedJobs(@PathVariable("id") Integer empId){
+        return new ResponseEntity<>(appliedJobService.getAppliedJobsByEmployeeId(empId),HttpStatus.OK);
+    }
+
 
 
 }

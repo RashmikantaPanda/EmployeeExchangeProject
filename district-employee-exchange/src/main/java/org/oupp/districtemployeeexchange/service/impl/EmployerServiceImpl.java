@@ -1,5 +1,6 @@
 package org.oupp.districtemployeeexchange.service.impl;
 
+import org.oupp.districtemployeeexchange.entity.AppliedJob;
 import org.oupp.districtemployeeexchange.entity.Employer;
 import org.oupp.districtemployeeexchange.entity.Jobs;
 import org.oupp.districtemployeeexchange.entity.Role;
@@ -96,8 +97,5 @@ public class EmployerServiceImpl implements EmployerService {
         return jobService.createNewJobs(jobs);
     }
 
-//    public Jobs updateJob(Jobs job,Integer jobId){
-//        Optional<Jobs> job=jobService.
-//    }
 
 }

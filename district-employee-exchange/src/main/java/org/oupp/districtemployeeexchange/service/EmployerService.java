@@ -1,5 +1,6 @@
 package org.oupp.districtemployeeexchange.service;
 
+import org.oupp.districtemployeeexchange.entity.AppliedJob;
 import org.oupp.districtemployeeexchange.entity.Employer;
 import org.oupp.districtemployeeexchange.entity.Jobs;
 
